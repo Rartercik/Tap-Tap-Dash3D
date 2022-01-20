@@ -5,15 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-	[SerializeField] float speed;
+	[SerializeField] PlayerData _data;
 	[SerializeField] CameraMovement _camera;
 	[SerializeField] ActionPlate nextActionPlate;
-	[SerializeField] float rotationDuration;
-    [SerializeField] float acceleration;
     [SerializeField] float minY;
-    [SerializeField] AnimationCurve jumpCurve;
-    [SerializeField] float jumpDuration;
-    [SerializeField] float jumpHeight;
+    
+    [SerializeField] float _acceleration;
+    [SerializeField] float _speed;
+    [SerializeField] float _rotationDuration;
+    [SerializeField] float _startCameraRotationDuration;
+    [SerializeField] float _jumpDuration;
     
     private Rigidbody rb;
     private Vector3 direction = new Vector3(0, 0, 1);
@@ -27,9 +28,55 @@ public class PlayerMovement : MonoBehaviour
 	private float endRotationY;
 	private float progressRotation;
     
+	public float Speed
+    {
+    	get
+    	{
+    		return _speed;
+    	}
+    	set
+    	{
+    		if(value < 0)
+    			_speed = 0;
+    		else if(value > _data.MaxSpeed)
+    			_speed = _data.MaxSpeed;
+    		else
+    			_speed = value;
+    	}
+    }
+	public float RotationDuration
+    {
+    	get
+    	{
+    		return _rotationDuration;
+    	}
+    	set
+    	{
+    		if(value < _data.MinRotationDuration)
+    			_rotationDuration = _data.MinRotationDuration;
+    		else
+    			_rotationDuration = value;
+    	}
+    }
+	public float JumpDuration
+    {
+    	get
+    	{
+    		return _jumpDuration;
+    	}
+    	set
+    	{
+    		if(value < _data.MinJumpDuration)
+    			_jumpDuration = _data.MinJumpDuration;
+    		else
+    			_jumpDuration = value;
+    	}
+    }
+	
     void Start()
     {
     	rb = GetComponent<Rigidbody>();
+    	_camera.RotationDuration = _startCameraRotationDuration;
     }
     
     void Update()
@@ -38,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
         {
         	if(progressRotation < 1)
         	{
-        		progressRotation += Time.deltaTime / rotationDuration;
+        		progressRotation += Time.deltaTime / RotationDuration;
         		
         		transform.rotation = Quaternion.Lerp(startTransform.rotation, Quaternion.Euler(new Vector3(
         																	startTransform.eulerAngles.x,
@@ -55,21 +102,17 @@ public class PlayerMovement : MonoBehaviour
     
     void FixedUpdate()
     {
-    	if(speed * acceleration < 15)
-    		speed *= acceleration;
-    	if(jumpDuration / acceleration > 0.16f)
-    		jumpDuration /= acceleration;
-    	if(_camera.RotationDuration / acceleration > 0.16f)
-    		_camera.RotationDuration /= acceleration;
-    	if(rotationDuration / acceleration > 0.33f)
-    		rotationDuration /= acceleration;
+    	Speed *= _acceleration;
+    	JumpDuration /= _acceleration;
+    	_camera.RotationDuration /= _acceleration;
+    	RotationDuration /= _acceleration;
     	
     	if(jumpStart)
     	{
     		timer += Time.fixedDeltaTime;
-    		progress = timer / jumpDuration;
+    		progress = timer / JumpDuration;
     		
-    		if(timer > jumpDuration)
+    		if(timer > JumpDuration)
     		{
     			jumpStart = false;
     			rb.useGravity = true;
@@ -78,13 +121,16 @@ public class PlayerMovement : MonoBehaviour
     		}
     	}
     	
-    	var finalDiraction = direction * speed * Time.fixedDeltaTime;
-    	var jumpParameter = jumpStart == true
-    		? jumpStartPositionY + jumpCurve.Evaluate(progress) * jumpHeight
+    	var finalDiraction = direction * Speed * Time.fixedDeltaTime;
+    	
+    	var jumpParameter = jumpStart
+    		? jumpStartPositionY + _data.JumpCurve.Evaluate(progress) * _data.JumpHeight
     		: transform.position.y;
-    	var jumpDurationParameter = jumpStart == true
-    		? jumpDuration
+    	
+    	var jumpDurationParameter = jumpStart
+    		? JumpDuration
     		: 0;
+    	
     	rb.MovePosition(new Vector3(transform.position.x + finalDiraction.x,
     	                            jumpParameter,
     	                            transform.position.z + finalDiraction.z));
@@ -118,15 +164,15 @@ public class PlayerMovement : MonoBehaviour
     	nextActionPlate = next;
     }
     
-    public void ChangeValues(float _speed, float _jumpDuration, float _acceleration, float cameraRDuration, float platerRDuration,
-                             ActionPlate _next)
+    public void ChangeValues(float speed, float jumpDuration, float acceleration, float cameraRDuration, float playerRDuration,
+                             ActionPlate next)
     {
-    	speed = _speed;
-    	jumpDuration = _jumpDuration;
+    	Speed = speed;
+    	JumpDuration = jumpDuration;
     	_camera.RotationDuration = cameraRDuration;
-    	rotationDuration = platerRDuration;
-    	acceleration = _acceleration;
-    	nextActionPlate = _next;
+    	RotationDuration = playerRDuration;
+    	_acceleration = acceleration;
+    	nextActionPlate = next;
     }
     
     private void EndGame()

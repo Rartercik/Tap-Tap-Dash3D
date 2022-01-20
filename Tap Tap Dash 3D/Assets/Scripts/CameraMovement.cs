@@ -4,14 +4,31 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-	public float RotationDuration;
+	[SerializeField] PlayerData _data;
 	[SerializeField] Transform playerTransform;
 	[SerializeField] Transform rotationCenter;
 	
+	private float _rotationDuration;
 	private bool startRotate;
 	private Transform startTransform;
 	private float endRotationY;
 	private float progress;
+	
+	public float RotationDuration
+	{
+		get
+		{
+			return _rotationDuration;
+		}
+		set
+		{
+			if(value < _data.MinCameraRotationDuration)
+				_rotationDuration = _data.MinCameraRotationDuration;
+			else
+				_rotationDuration = value;
+		}
+	}
+	
     void Update()
     {
         if(startRotate)
