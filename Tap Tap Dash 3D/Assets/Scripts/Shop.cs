@@ -2,25 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Shop : MonoBehaviour
 {
 	[SerializeField] GameObject[] _itemsOff;
-	[SerializeField] Button[] _buttonsOff;
 	[SerializeField] GameObject[] _itemsOn;
-	[SerializeField] Button[] _buttonsOn;
+	[SerializeField] Image[] _buttonsOffImages;
+	[SerializeField] Image[] _buttonsOnImages;
+	[SerializeField] float duration;
 	
 	private Image[] _imagesOff;
 	private Text[] _textsOff;
-	[SerializeField] private Image[] _imagesOn;
+	private Image[] _imagesOn;
 	private Text[] _textsOn;
 	private bool _startSwitching;
 	private float _progress;
 	
     void Start()
     {
-    	InitializeItems(_itemsOff, _imagesOff, _textsOff);
-    	InitializeItems(_itemsOn, _imagesOn, _textsOn);
+    	InitializeItems(_itemsOff, ref _imagesOff, ref _textsOff);
+    	InitializeItems(_itemsOn, ref _imagesOn, ref _textsOn);
     }
     void Update()
     {
@@ -28,16 +30,16 @@ public class Shop : MonoBehaviour
     	{
     		if(_progress < 1)
     		{
-    			_progress += Time.deltaTime;
+    			_progress += Time.deltaTime / duration;
     			var _progressOff = 1 - _progress;
-    			ProcessSwitching(_imagesOn, _textsOn, _progress);
-    			ProcessSwitching(_imagesOff, _textsOff, _progressOff);
+    			ProcessSwitching(ref _imagesOn, ref _textsOn, _progress);
+    			ProcessSwitching(ref _imagesOff, ref _textsOff, _progressOff);
     		}
     		else
     		{
     			_startSwitching = false;
-    			foreach(var e in _buttonsOn)
-    				e.interactable = true;
+    			foreach(var e in _buttonsOnImages)
+    				e.raycastTarget = true;
     			_progress = 0;
     		}
     	}
@@ -48,11 +50,11 @@ public class Shop : MonoBehaviour
     	if(!_startSwitching)
     	{
     		_startSwitching = true;
-    		foreach(var e in _buttonsOff)
-    			e.interactable = false;
+    		foreach(var e in _buttonsOffImages)
+    			e.raycastTarget = false;
     	}
     }
-    private void InitializeItems(GameObject[] items, Image[] images, Text[] texts)
+    private void InitializeItems(GameObject[] items, ref Image[] images, ref Text[] texts)
     {
     	var imageList = new List<Image>();
     	var textList = new List<Text>();
@@ -64,11 +66,10 @@ public class Shop : MonoBehaviour
     			textList.Add(text);
     		else Debug.LogError("No requred component");
     	}
-    	Debug.Log(imageList.Count);
     	images = imageList.ToArray();
     	texts = textList.ToArray();
     }
-    private void ProcessSwitching(Image[] images, Text[] texts, float progress)
+    private void ProcessSwitching(ref Image[] images, ref Text[] texts, float progress)
     {
     	foreach(var e in images)
     		e.color = new Color(e.color.r, e.color.g, e.color.b, progress);

@@ -9,6 +9,7 @@ public class LevelStation : MonoBehaviour
 	public int Level;
 	
 	[SerializeField] GameObject player;
+	[SerializeField] float _playerHeight;
 	[SerializeField] ActionPlate next;
 	[SerializeField] float playerSpeed = 5;
 	[SerializeField] float jumpDuration = 0.5f;
@@ -16,16 +17,21 @@ public class LevelStation : MonoBehaviour
 	[SerializeField] float cameraRDuration = 0.5f;
 	[SerializeField] float playerRDuration = 1;
 	[SerializeField] Text text;
+	[SerializeField] GameObject _effects;
 	
 	private PlayerMovement playerMovement;
+	private Rigidbody _playerRigidbody;
 	private bool levelStart;
 	private float progress;
 	private Vector3 playerStartPosition;
+	private Animator _animator;
 	
 	void Start()
 	{
 		playerMovement = player.GetComponent<PlayerMovement>();
+		_playerRigidbody = player.GetComponent<Rigidbody>();
 		text.text = Level.ToString();
+		_animator = GetComponent<Animator>();
 		
 		if(StartLevel.Level == Level)
 		{
@@ -41,9 +47,10 @@ public class LevelStation : MonoBehaviour
     		if(progress < 1)
     		{
     			progress += Time.deltaTime;
-    			player.transform.position = Vector3.Lerp(playerStartPosition, new Vector3(transform.position.x,
-    		                                                                			  player.transform.position.y,
+    			var playerPosition = Vector3.Lerp(playerStartPosition, new Vector3(transform.position.x,
+    		                                                                			  _playerHeight,
     		                                                                			  transform.position.z), progress);
+    			_playerRigidbody.MovePosition(playerPosition);
     		}
     		else
     		{
@@ -60,9 +67,15 @@ public class LevelStation : MonoBehaviour
     {
     	if(other.gameObject.TryGetComponent<PlayerMovement>(out var p) && StartLevel.Level != Level)
     	{
+    		_animator.SetTrigger("DoChange");
     		p.enabled = false;
     		levelStart = true;
     		playerStartPosition = player.transform.position;
     	}
+    }
+    
+    public void StarsEffects()
+    {
+    	_effects.SetActive(true);
     }
 }
