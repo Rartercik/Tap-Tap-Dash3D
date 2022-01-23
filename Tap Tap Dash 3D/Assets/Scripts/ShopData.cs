@@ -28,14 +28,11 @@ public class ShopData : ScriptableObject
 			Data = JsonUtility.FromJson<SaveData>(File.ReadAllText(_path));
 		}
 	}
-	void OnApplicationPause(bool pause)
+	
+	public void SerializeData()
 	{
-		if(pause) File.WriteAllText(_path, JsonUtility.ToJson(Data));
+		File.WriteAllText(_path, JsonUtility.ToJson(Data));
 	}
-	void OnApplicationQuit()
-    {
-        File.WriteAllText(_path, JsonUtility.ToJson(Data));
-    }
 	
 	public void AddMoney(int count)
 	{

@@ -9,6 +9,7 @@ public class LevelStation : MonoBehaviour
 	public int Level;
 	
 	[SerializeField] GameObject player;
+	[SerializeField] ShopData _shopInformation;
 	[SerializeField] float _playerHeight;
 	[SerializeField] ActionPlate next;
 	[SerializeField] float playerSpeed = 5;
@@ -60,6 +61,7 @@ public class LevelStation : MonoBehaviour
     			var s = string.Format("{0} {1}", SceneManager.GetActiveScene().buildIndex, Level);
     			PlayerPrefs.SetString(s, s);
     			playerMovement.ChangeValues(playerSpeed, jumpDuration, playerAcceleration, cameraRDuration, playerRDuration, next);
+    			_shopInformation.SerializeData();
     		}
     	}
     }
@@ -74,7 +76,7 @@ public class LevelStation : MonoBehaviour
     	}
     }
     
-    public void StarsEffects()
+    public void StartEffects()
     {
     	_effects.SetActive(true);
     }

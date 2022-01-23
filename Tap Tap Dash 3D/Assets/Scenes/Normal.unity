@@ -9842,7 +9842,11 @@ PrefabInstance:
       objectReference: {fileID: 2012853428}
     - target: {fileID: 7593554971213969840, guid: 2266cc6c04466694386972bde452206e, type: 3}
       propertyPath: cameraRDuration
-      value: 0.2
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593554971213969840, guid: 2266cc6c04466694386972bde452206e, type: 3}
+      propertyPath: playerRDuration
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7593554971213969840, guid: 2266cc6c04466694386972bde452206e, type: 3}
       propertyPath: playerAcceleration
