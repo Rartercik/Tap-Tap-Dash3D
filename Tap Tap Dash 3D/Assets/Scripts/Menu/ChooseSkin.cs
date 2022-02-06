@@ -68,6 +68,7 @@ public class ChooseSkin : MonoBehaviour
     	else
     	{
     		_data.Data.PlayerSkinName = _playerSkinName;
+            _data.SerializeData();
     	}
     }
     
