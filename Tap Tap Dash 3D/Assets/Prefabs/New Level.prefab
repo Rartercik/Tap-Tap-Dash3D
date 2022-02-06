@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 7364499120666917470}
   - component: {fileID: 7593554971213969840}
   - component: {fileID: 8612501391129975671}
+  - component: {fileID: -329338399735678310}
   m_Layer: 0
   m_Name: New Level
   m_TagString: Untagged
@@ -192,9 +193,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: 0
-  player: {fileID: 0}
+  _playerInfo: {fileID: 0}
   _shopInformation: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
-  _playerHeight: 1.5
+  _playerHeight: 1.07
   next: {fileID: 0}
   playerSpeed: 5
   jumpDuration: 0.5
@@ -222,6 +223,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-329338399735678310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364499120666917471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf4673bd2bd1c74a887d90f5494b617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7669024892390786814
 GameObject:
   m_ObjectHideFlags: 0

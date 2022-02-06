@@ -47,6 +47,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   JumpHeight: 1
   MaxSpeed: 15
-  MinRotationDuration: 0.2
+  MinRotationDuration: 0.1
   MinCameraRotationDuration: 0.1
   MinJumpDuration: 0.16
+  GravityScale: 2

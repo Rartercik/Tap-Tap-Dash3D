@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Shop
   m_EditorClassIdentifier: 
   Data:
-    Materials: {fileID: 0}
-    Money: 572
-  _playerMaterial: {fileID: 2100000, guid: 127832c1061c04642bb60dfc04440b98, type: 2}
+    PlayerSkinName: 
+    Money: 0
+  _playerSkinName: Villager
