@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class LevelStation : MonoBehaviour
 {
-	public int Level;
+    public int Level;
+    public Transform CollectablesParent;
 
+    [SerializeField] Transform _playerStart;
+    [SerializeField] PlayerEnding _playerEnding;
     [SerializeField] PlayerFinder _playerInfo;
 	[SerializeField] ShopData _shopInformation;
-	[SerializeField] float _playerHeight;
 	[SerializeField] ActionPlate next;
 	[SerializeField] float playerSpeed = 5;
 	[SerializeField] float jumpDuration = 0.5f;
@@ -20,6 +22,7 @@ public class LevelStation : MonoBehaviour
 	[SerializeField] Text text;
 	[SerializeField] GameObject _effects;
 
+    private MovementInformation _playerMovementInfo;
     private GameObject player;
     private PlayerMovement playerMovement;
 	private Rigidbody _playerRigidbody;
@@ -31,15 +34,19 @@ public class LevelStation : MonoBehaviour
 	void Start()
 	{
         player = _playerInfo.Player.gameObject;
+        _playerMovementInfo = new MovementInformation(playerSpeed, jumpDuration, playerAcceleration, cameraRDuration,
+            playerRDuration, next);
 		playerMovement = player.GetComponent<PlayerMovement>();
+
 		_playerRigidbody = player.GetComponent<Rigidbody>();
 		text.text = Level.ToString();
 		_animator = GetComponent<Animator>();
 		
 		if(StartLevel.Level == Level)
 		{
-			player.transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
-			playerMovement.ChangeValues(playerSpeed, jumpDuration, playerAcceleration, cameraRDuration, playerRDuration, next);
+            player.transform.position = _playerStart.position;
+			playerMovement.ChangeValues(_playerMovementInfo);
+            _playerEnding.StartStation = _playerStart;
 		}
 	}
 	
@@ -49,21 +56,11 @@ public class LevelStation : MonoBehaviour
     	{
     		if(progress < 1)
     		{
-    			progress += Time.deltaTime;
-    			var playerPosition = Vector3.Lerp(playerStartPosition, new Vector3(transform.position.x,
-    		                                                                			  _playerHeight,
-    		                                                                			  transform.position.z), progress);
-    			_playerRigidbody.MovePosition(playerPosition);
+                GoToCenter();
     		}
     		else
     		{
-    			levelStart = false;
-    			playerMovement.enabled = true;
-    			StartLevel.Level = Level;
-    			var s = string.Format("{0} {1}", SceneManager.GetActiveScene().buildIndex, Level);
-    			PlayerPrefs.SetString(s, s);
-    			playerMovement.ChangeValues(playerSpeed, jumpDuration, playerAcceleration, cameraRDuration, playerRDuration, next);
-    			_shopInformation.SerializeData();
+                InitializeLevel();
     		}
     	}
     }
@@ -72,8 +69,8 @@ public class LevelStation : MonoBehaviour
     	if(other.gameObject.TryGetComponent<PlayerMovement>(out var p) && StartLevel.Level != Level)
     	{
     		_animator.SetTrigger("DoChange");
-    		p.enabled = false;
-    		levelStart = true;
+            SwitchMovementEnabled(false);
+            levelStart = true;
     		playerStartPosition = player.transform.position;
     	}
     }
@@ -81,5 +78,30 @@ public class LevelStation : MonoBehaviour
     public void StartEffects()
     {
     	_effects.SetActive(true);
+    }
+
+    private void GoToCenter()
+    {
+        progress += Time.deltaTime;
+        var playerPosition = Vector3.Lerp(playerStartPosition, _playerStart.position, progress);
+        _playerRigidbody.MovePosition(playerPosition);
+    }
+    private void InitializeLevel()
+    {
+        levelStart = false;
+        SwitchMovementEnabled(true);
+        StartLevel.Level = Level;
+        var s = string.Format("{0} {1}", SceneManager.GetActiveScene().buildIndex, Level);
+        PlayerPrefs.SetString(s, s);
+        playerMovement.ChangeValues(_playerMovementInfo);
+        _playerEnding.StartStation = _playerStart;
+        _shopInformation.SerializeData();
+    }
+    private void SwitchMovementEnabled(bool arg)
+    {
+        playerMovement.enabled = arg;
+        playerMovement.Movement.enabled = arg;
+        playerMovement.RotationMovement.enabled = arg;
+        playerMovement.VerticalMovement.enabled = arg;
     }
 }

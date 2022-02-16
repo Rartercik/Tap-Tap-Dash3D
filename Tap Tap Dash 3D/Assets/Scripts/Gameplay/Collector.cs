@@ -11,7 +11,7 @@ public class Collector : MonoBehaviour
     
     private int _count;
     
-	void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter(Collider other)
 	{
 		if(other.gameObject.TryGetComponent<Collectable>(out var collect))
 		{
@@ -21,4 +21,13 @@ public class Collector : MonoBehaviour
 			other.gameObject.SetActive(false);
 		}
 	}
+
+    public void ResetValues()
+    {
+		if (text != null)
+		{
+			_count = 0;
+			text.text = "0";
+		}
+    }
 }

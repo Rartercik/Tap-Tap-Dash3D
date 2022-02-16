@@ -736,6 +736,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b41ef10c2934c469e39cae2cae8464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpProcessor: {fileID: 4295053043825278826}
+  _dieProcessor: {fileID: 853821161544358840}
   _shop: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
   _skinName: Archer
 --- !u!1 &606146386769652113
@@ -1574,36 +1576,6 @@ Transform:
   m_Father: {fileID: 1520715385297901730}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1520715383385011702
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1520715383385011705}
-  m_Layer: 0
-  m_Name: BodyPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1520715383385011705
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520715383385011702}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.22, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1520715384006535606}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1520715383392834503
 GameObject:
   m_ObjectHideFlags: 0
@@ -2233,6 +2205,10 @@ GameObject:
   - component: {fileID: 1520715384006535610}
   - component: {fileID: 1520715384006535609}
   - component: {fileID: 1520715384006535607}
+  - component: {fileID: 1957581178611760339}
+  - component: {fileID: 419206559476052199}
+  - component: {fileID: 4295053043825278826}
+  - component: {fileID: 853821161544358840}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2255,7 +2231,6 @@ Transform:
   - {fileID: 218046423595961803}
   - {fileID: 1520715384875784505}
   - {fileID: 5493526856114610994}
-  - {fileID: 1520715383385011705}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2286,8 +2261,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5272193, y: 0.98094046, z: 0.39189768}
-  m_Center: {x: 0, y: 0.44098204, z: 0.006078005}
+  m_Size: {x: 0.5272193, y: 0.9355308, z: 0.39189768}
+  m_Center: {x: 0, y: 0.46368688, z: 0.006078005}
 --- !u!114 &1520715384006535609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2315,15 +2290,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d271918f9e3aa10469c36c05df07b664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: c1c7fe2361c59784e96176eb8d9e75de, type: 2}
-  _camera: {fileID: 0}
-  nextActionPlate: {fileID: 0}
-  minY: 0.47
+  NextActionPlate: {fileID: 0}
+  Data: {fileID: 11400000, guid: c1c7fe2361c59784e96176eb8d9e75de, type: 2}
+  RotationMovement: {fileID: 419206559476052199}
+  VerticalMovement: {fileID: 4295053043825278826}
+  Movement: {fileID: 1957581178611760339}
   _acceleration: 1.0002
   _speed: 5
-  _rotationDuration: 0.6
-  _startCameraRotationDuration: 0.5
   _jumpDuration: 0.5
+--- !u!114 &1957581178611760339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520715384006535604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3556bfff9e56049a55172d42b1c654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 0
+--- !u!114 &419206559476052199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520715384006535604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c6088628f3804a4aad4ed2838392674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
+  _rotationDuration: 0
+  _startCameraRotationDuration: 0
+--- !u!114 &4295053043825278826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520715384006535604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8425a67b92e6cac40818163fad0d6094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovementAnimator: {fileID: 0}
+  _jumpDuration: 0
+--- !u!114 &853821161544358840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520715384006535604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7d147feb2546a44b843b575962152a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartStation: {fileID: 0}
+  MovementAnimator: {fileID: 0}
+  _playerMovement: {fileID: 1520715384006535607}
+  _camera: {fileID: 0}
+  _collector: {fileID: 1520715384006535609}
+  _maxFallingValue: 0.1
+  _maxZRotation: 30
 --- !u!1 &1520715384015196317
 GameObject:
   m_ObjectHideFlags: 0
@@ -3331,6 +3366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b41ef10c2934c469e39cae2cae8464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpProcessor: {fileID: 4295053043825278826}
+  _dieProcessor: {fileID: 853821161544358840}
   _shop: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
   _skinName: Knight
 --- !u!1 &1520715384906169112
@@ -4173,6 +4210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b41ef10c2934c469e39cae2cae8464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpProcessor: {fileID: 4295053043825278826}
+  _dieProcessor: {fileID: 853821161544358840}
   _shop: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
   _skinName: Villager
 --- !u!1 &1907428073230702758
@@ -7141,6 +7180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b41ef10c2934c469e39cae2cae8464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpProcessor: {fileID: 4295053043825278826}
+  _dieProcessor: {fileID: 853821161544358840}
   _shop: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
   _skinName: Ninja
 --- !u!1 &5215037177693978545

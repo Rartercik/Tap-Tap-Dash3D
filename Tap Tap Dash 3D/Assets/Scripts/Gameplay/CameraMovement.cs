@@ -55,4 +55,9 @@ public class CameraMovement : MonoBehaviour
     	startTransform = rotationCenter;
     	endRotationY = yRotation;
     }
+    public void StopRotate()
+    {
+        startRotate = false;
+        progress = 0;
+    }
 }

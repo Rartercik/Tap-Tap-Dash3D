@@ -7,7 +7,7 @@ public class Arrow : ActionPlate
 	public override void DoAction()
 	{
 		float angle = transform.localEulerAngles.y + 90f;
-		player.Rotate(angle, next, CalculateDiraction(angle));
+		player.StartRotation(angle, next, CalculateDiraction(angle));
 		
 		gameObject.SetActive(false);
 	}

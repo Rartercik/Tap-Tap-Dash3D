@@ -1,198 +1,86 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(RotationMovement))]
+[RequireComponent(typeof(VerticalMovement))]
+[RequireComponent(typeof(Movement))]
 public class PlayerMovement : MonoBehaviour
 {
-	[SerializeField] PlayerData _data;
-	[SerializeField] CameraMovement _camera;
-	[SerializeField] ActionPlate nextActionPlate;
-    [SerializeField] float minY;
-    
+    public ActionPlate NextActionPlate;
+    public PlayerData Data;
+
+    [HideInInspector]
+    public MovementInformation LastUpdate;
+
+    [HideInInspector]
+    public RotationMovement RotationMovement;
+
+    [HideInInspector]
+    public VerticalMovement VerticalMovement;
+
+    [HideInInspector]
+    public Movement Movement;
+
     [SerializeField] float _acceleration;
     [SerializeField] float _speed;
-    [SerializeField] float _rotationDuration;
-    [SerializeField] float _startCameraRotationDuration;
-    [SerializeField] float _jumpDuration;
-    
-    private Rigidbody rb;
-    private Vector3 direction = new Vector3(0, 0, 1);
-    private bool jumpStart = false;
-    private float jumpStartPositionY;
-    private float timer;
-    private float progress;
-    
-    private bool startRotate;
-	private Transform startTransform;
-	private float endRotationY;
-	private float progressRotation;
-    
-	public float Speed
-    {
-    	get
-    	{
-    		return _speed;
-    	}
-    	set
-    	{
-    		if(value < 0)
-    			_speed = 0;
-    		else if(value > _data.MaxSpeed)
-    			_speed = _data.MaxSpeed;
-    		else
-    			_speed = value;
-    	}
-    }
-	public float RotationDuration
-    {
-    	get
-    	{
-    		return _rotationDuration;
-    	}
-    	set
-    	{
-    		if(value < _data.MinRotationDuration)
-    			_rotationDuration = _data.MinRotationDuration;
-    		else
-    			_rotationDuration = value;
-    	}
-    }
-	public float JumpDuration
-    {
-    	get
-    	{
-    		return _jumpDuration;
-    	}
-    	set
-    	{
-    		if(value < _data.MinJumpDuration)
-    			_jumpDuration = _data.MinJumpDuration;
-    		else
-    			_jumpDuration = value;
-    	}
-    }
 	
     void Start()
     {
-    	rb = GetComponent<Rigidbody>();
-    	_camera.RotationDuration = _startCameraRotationDuration;
-    }
-    
-    void Update()
-    {
-    	if(startRotate)
-        {
-        	if(progressRotation < 1)
-        	{
-        		progressRotation += Time.deltaTime / RotationDuration;
-        		
-        		transform.rotation = Quaternion.Lerp(startTransform.rotation, Quaternion.Euler(new Vector3(
-        																	startTransform.eulerAngles.x,
-        		                                                            endRotationY,
-        		                                                            startTransform.eulerAngles.z)), progressRotation);
-        	}
-        	else
-        	{
-        		startRotate = false;
-        		progressRotation = 0;
-        	}
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, transform.eulerAngles.z);
-        }
+        RotationMovement = GetComponent<RotationMovement>();
+        VerticalMovement = GetComponent<VerticalMovement>();
+        Movement = GetComponent<Movement>();
+
+        LastUpdate = new MovementInformation(Movement.Speed, VerticalMovement.JumpDuration, _acceleration, 
+            RotationMovement.StartCameraRotationDuration,
+            RotationMovement.RotationDuration, NextActionPlate);
     }
     
     void FixedUpdate()
     {
-    	Speed *= _acceleration;
-    	JumpDuration /= _acceleration;
-    	_camera.RotationDuration /= _acceleration;
-    	RotationDuration /= _acceleration;
-    	
-    	if(jumpStart)
-    	{
-    		timer += Time.fixedDeltaTime;
-    		progress = timer / JumpDuration;
-    		
-    		if(timer > JumpDuration)
-    		{
-    			jumpStart = false;
-    			timer = 0;
-    			progress = 0;
-    		}
-    	}
-        else
-        {
-            var gravity = Vector3.down * _data.GravityScale * PlayerData.GravityAcceleration;
-            rb.AddForce(gravity, ForceMode.Acceleration);
-        }
-    	
-    	var finalDiraction = direction * Speed * Time.fixedDeltaTime;
-    	
-    	var jumpParameter = jumpStart
-    		? jumpStartPositionY + _data.JumpCurve.Evaluate(progress) * _data.JumpHeight
-    		: transform.position.y;
-    	
-    	var jumpDurationParameter = jumpStart
-    		? JumpDuration
-    		: 0;
-    	
-    	rb.MovePosition(new Vector3(transform.position.x + finalDiraction.x,
-    	                            jumpParameter,
-    	                            transform.position.z + finalDiraction.z));
-    	
-    	if(transform.position.y < minY)
-        {
-        	_data.EndGame();
-        }
+        Accelerate();
     }
     
+    public void StopRotation()
+    {
+        RotationMovement.StopRotation();
+    }
+
     public void DoAction()
     {
-    	if(nextActionPlate != null)
-    		nextActionPlate.DoAction();
+    	if(NextActionPlate != null)
+    		NextActionPlate.DoAction();
     }
     
-    public void Rotate(float rotation, ActionPlate next, Vector3 d)
+    public void StartRotation(float rotation, ActionPlate next, Vector3 d)
     {
-    	RotatePlayer(rotation);
-    	var cameraRot = CalculateRotation(rotation);
-    	_camera.Rotate(cameraRot);
-    	direction = d;
-    	nextActionPlate = next;
+        RotationMovement.PrepareRotation(rotation, d);
+    	NextActionPlate = next;
     }
     
     public void Jump(ActionPlate next)
     {
-    	jumpStart = true;
-    	jumpStartPositionY = transform.position.y;
-    	nextActionPlate = next;
+        VerticalMovement.Jump();
+    	NextActionPlate = next;
     }
     
-    public void ChangeValues(float speed, float jumpDuration, float acceleration, float cameraRDuration, float playerRDuration,
-                             ActionPlate next)
+    public void ChangeValues(MovementInformation info)
     {
-    	Speed = speed;
-    	JumpDuration = jumpDuration;
-    	_camera.RotationDuration = cameraRDuration;
-    	RotationDuration = playerRDuration;
-    	_acceleration = acceleration;
-    	nextActionPlate = next;
+        LastUpdate = info;
+        _acceleration = info.Acceleration;
+        NextActionPlate = info.Next;
+
+        Movement.ChangeValues(info);
+        VerticalMovement.ChangeValues(info);
+        RotationMovement.ChangeValues(info);
+    	
     }
-    private void RotatePlayer(float yRotation)
+
+    private void Accelerate()
     {
-    	startRotate = true;
-    	startTransform = transform;
-    	endRotationY = yRotation;
-    }
-    private float CalculateRotation(float r)
-    {
-    	if(r == 0 || r == 360) return 0;
-    	if(r == 90) return 30;
-    	if(r == 270) return -30;
-    	return 90;
+        Movement.Accelerate(_acceleration);
+        VerticalMovement.Accelerate(_acceleration);
+        RotationMovement.Accelerate(_acceleration);
     }
 }

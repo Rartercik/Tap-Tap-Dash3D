@@ -15,9 +15,4 @@ public class PlayerData : ScriptableObject
     public float MinJumpDuration;
 	public float GravityScale;
 	[HideInInspector] public const float GravityAcceleration = 9.81f;
-
-	public void EndGame()
-	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-	}
 }
