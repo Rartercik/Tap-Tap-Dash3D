@@ -11,6 +11,8 @@ public class PlayerEnding : MonoBehaviour
     [HideInInspector]
     public Animator MovementAnimator;
 
+    [SerializeField] AdsShower _adsShower;
+
     [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] Transform _camera;
     [SerializeField] Collector _collector;
@@ -54,6 +56,8 @@ public class PlayerEnding : MonoBehaviour
         _playerMovement.Movement.Direction = Vector3.forward;
         _playerMovement.ChangeValues(_playerMovement.LastUpdate);
         _collector.ResetValues();
+
+        _adsShower.UpdateAds();
         
     }
     public void RestartLevel()

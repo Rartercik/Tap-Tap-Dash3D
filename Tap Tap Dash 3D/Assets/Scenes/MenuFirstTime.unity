@@ -5133,6 +5133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   World: 2
   level: 1
+  _adsShower: {fileID: 11400000, guid: c5a64f8e88ad71741bf15292a39246c8, type: 2}
 --- !u!114 &392608666
 MonoBehaviour:
   m_ObjectHideFlags: 0

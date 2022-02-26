@@ -8,6 +8,7 @@ public class SceneLoader : MonoBehaviour
 {
 	[SerializeField] int World;
 	[SerializeField] int level;
+	[SerializeField] AdsShower _adsShower;
 	
 	private Button button;
 	
@@ -42,6 +43,7 @@ public class SceneLoader : MonoBehaviour
 		{
 			StartLevel.Level = level;
 			SceneManager.LoadScene(World);
+			_adsShower.UpdateAds();
 		}
 	}
 }

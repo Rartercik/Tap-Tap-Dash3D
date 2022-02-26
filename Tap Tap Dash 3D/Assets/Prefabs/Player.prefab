@@ -2297,7 +2297,6 @@ MonoBehaviour:
   Movement: {fileID: 1957581178611760339}
   _acceleration: 1.0002
   _speed: 5
-  _jumpDuration: 0.5
 --- !u!114 &1957581178611760339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2354,6 +2353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartStation: {fileID: 0}
   MovementAnimator: {fileID: 0}
+  _adsShower: {fileID: 11400000, guid: c5a64f8e88ad71741bf15292a39246c8, type: 2}
   _playerMovement: {fileID: 1520715384006535607}
   _camera: {fileID: 0}
   _collector: {fileID: 1520715384006535609}
