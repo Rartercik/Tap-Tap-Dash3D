@@ -18,6 +18,7 @@ public class RotationMovement : MonoBehaviour
     private Transform startTransform;
     private float endRotationY;
     private float progress;
+    private Transform _cacheTransform;
 
     public float RotationDuration
     {
@@ -37,6 +38,7 @@ public class RotationMovement : MonoBehaviour
 
     private void Awake()
     {
+        _cacheTransform = transform;
         _mainMovement = GetComponent<PlayerMovement>();
         _movement = GetComponent<Movement>();
         _camera.RotationDuration = _startCameraRotationDuration;
@@ -49,7 +51,7 @@ public class RotationMovement : MonoBehaviour
         }
         else
         {
-            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, transform.eulerAngles.z);
+            _cacheTransform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, transform.eulerAngles.z);
         }
     }
 
@@ -88,7 +90,7 @@ public class RotationMovement : MonoBehaviour
         {
             progress += Time.deltaTime / RotationDuration;
 
-            transform.rotation = Quaternion.Lerp(startTransform.rotation, Quaternion.Euler(new Vector3(
+            _cacheTransform.rotation = Quaternion.Lerp(startTransform.rotation, Quaternion.Euler(new Vector3(
                                                                         startTransform.eulerAngles.x,
                                                                         endRotationY,
                                                                         startTransform.eulerAngles.z)), progress);

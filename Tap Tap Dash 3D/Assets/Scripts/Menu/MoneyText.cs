@@ -7,7 +7,7 @@ public class MoneyText : MonoBehaviour
 {
 	[SerializeField] ShopData _data;
 	
-	void Start()
+	private void Start()
 	{
 		GetComponent<Text>().text = _data.Data.Money.ToString();
 	}

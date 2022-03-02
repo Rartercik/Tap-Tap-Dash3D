@@ -19,8 +19,10 @@ public class ChooseSkin : MonoBehaviour
 	
 	private SkinInformation _information;
 	private string _path;
+
+    public string PlayerSkinName => _playerSkinName;
 	
-	void Awake()
+	private void Awake()
 	{
 		_information = new SkinInformation();
 		_information.Available = _available;
@@ -35,7 +37,7 @@ public class ChooseSkin : MonoBehaviour
 			_information = JsonUtility.FromJson<SkinInformation>(File.ReadAllText(_path));
 		}
 	}
-    void Start()
+    private void Start()
     {
     	if(_costText != null)
     		_costText.text = _cost.ToString();
@@ -68,6 +70,7 @@ public class ChooseSkin : MonoBehaviour
     	else
     	{
     		_data.Data.PlayerSkinName = _playerSkinName;
+            MenuSkinController.ChangeSkin(_playerSkinName);
             _data.SerializeData();
     	}
     }
