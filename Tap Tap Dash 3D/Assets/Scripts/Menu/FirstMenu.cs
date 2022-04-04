@@ -1,21 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class FirstMenu : MonoBehaviour
 {
-	[SerializeField] int mainMenu;
+	[SerializeField] int _mainMenu;
 	
-	private string key = "Was";
+	private string _key = "Was";
 	
-	void Start()
+	private void Start()
 	{
-		if(PlayerPrefs.HasKey(key)) SceneManager.LoadScene(mainMenu);
+		if(PlayerPrefs.HasKey(_key)) SceneManager.LoadScene(_mainMenu);
 	}
 	
 	public void OnClick()
 	{
-		PlayerPrefs.SetString(key, key);
+		PlayerPrefs.SetString(_key, _key);
 	}
 }

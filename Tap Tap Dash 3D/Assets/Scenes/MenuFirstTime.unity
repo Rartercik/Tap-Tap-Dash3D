@@ -5132,8 +5132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd0c7ab004912e4eab6efdcceca33b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  World: 2
-  level: 1
+  _world: 2
+  _level: 1
   _adsShower: {fileID: 11400000, guid: c5a64f8e88ad71741bf15292a39246c8, type: 2}
 --- !u!114 &392608666
 MonoBehaviour:
@@ -5147,7 +5147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef840b6a50617c64eb8733867e400d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: 1
+  _mainMenu: 1
 --- !u!1 &455342926
 GameObject:
   m_ObjectHideFlags: 0

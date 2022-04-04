@@ -7,7 +7,7 @@ public class Collector : MonoBehaviour
 {
 	[SerializeField] ShopData _shop;
     [SerializeField] CollectParameters _collectParameter;
-    [SerializeField] Text text;
+    [SerializeField] Text _text;
     
     private int _count;
     
@@ -16,7 +16,7 @@ public class Collector : MonoBehaviour
 		if(other.gameObject.TryGetComponent<Collectable>(out var collect))
 		{
 			_count += _collectParameter.Addition;
-			text.text = _count.ToString();
+			_text.text = _count.ToString();
 			_shop.AddMoney(_collectParameter.Addition);
 			other.gameObject.SetActive(false);
 		}
@@ -24,10 +24,10 @@ public class Collector : MonoBehaviour
 
     public void ResetValues()
     {
-		if (text != null)
+		if (_text != null)
 		{
 			_count = 0;
-			text.text = "0";
+			_text.text = "0";
 		}
     }
 }

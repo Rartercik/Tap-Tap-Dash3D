@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class SwitcherUI : MonoBehaviour
 {
 	[SerializeField] CheckerUI _mainChecker;
@@ -10,7 +9,7 @@ public class SwitcherUI : MonoBehaviour
 	
 	private Animator _animator;
 	
-	void Awake()
+	private void Awake()
 	{
 		_animator = GetComponent<Animator>();
 		_animator.SetTrigger(_isOn ? "MomentalOn" : "MomentalOff");
@@ -19,8 +18,16 @@ public class SwitcherUI : MonoBehaviour
 
 	public void UpdateAnimatorState()
 	{
-		_animator.SetTrigger(_isOn ? "Off" : "On");
-		_isOn = !_isOn;
+		var currentAnimation = _animator.GetCurrentAnimatorStateInfo(0);
+
+		var canAnimate = currentAnimation.IsName("ImageOn") || currentAnimation.IsName("ImageOff")
+			|| currentAnimation.IsName("TextOn") || currentAnimation.IsName("TextOff");
+
+		if (canAnimate)
+		{
+			_animator.SetTrigger(_isOn ? "Off" : "On");
+			_isOn = !_isOn;
+		}
 	}
 	public void ChangeButtonEnable()
 	{

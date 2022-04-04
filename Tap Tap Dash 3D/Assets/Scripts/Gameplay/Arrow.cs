@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Arrow : ActionPlate
 {
-	public override void DoAction()
+	public override void DoAction(PlayerMovement player)
 	{
 		float angle = transform.localEulerAngles.y + 90f;
 		player.StartRotation(angle, next, CalculateDiraction(angle));

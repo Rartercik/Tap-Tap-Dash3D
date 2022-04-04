@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ClickAction : MonoBehaviour
 {
-	[SerializeField] PlayerMovement player;
+	[SerializeField] PlayerMovement _player;
 	
 	public void OnClick()
 	{
-		player.DoAction();
+		_player.DoAction();
 	}
 }

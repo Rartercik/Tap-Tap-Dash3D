@@ -92,6 +92,8 @@ GameObject:
   - component: {fileID: 7364499120666917469}
   - component: {fileID: 7364499120666917470}
   - component: {fileID: 7593554971213969840}
+  - component: {fileID: 8310812009003496601}
+  - component: {fileID: 6114297178136712847}
   - component: {fileID: 8612501391129975671}
   m_Layer: 0
   m_Name: New Level
@@ -194,18 +196,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Level: 0
   CollectablesParent: {fileID: 0}
-  _playerStart: {fileID: 5294747174535311098}
-  _playerEnding: {fileID: 0}
-  _playerInfo: {fileID: 0}
-  _shopInformation: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
-  next: {fileID: 0}
-  playerSpeed: 5
-  jumpDuration: 0.5
-  playerAcceleration: 1
-  cameraRDuration: 0.5
-  playerRDuration: 1
-  text: {fileID: 6171104142980214616}
+  player: {fileID: 0}
+  _playerStart: {fileID: 8107256155631733457}
+  _levelNumber: {fileID: 6171104142980214616}
   _effects: {fileID: 8871273284278345094}
+--- !u!114 &8310812009003496601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364499120666917471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38496e62a3bb244a4ff103706d51bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerStart: {fileID: 8107256155631733457}
+  _shopInformation: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
+  _next: {fileID: 0}
+  _playerSpeed: 5
+  _jumpDuration: 0.5
+  _playerAcceleration: 1
+  _cameraRDuration: 0.5
+  _playerRDuration: 1
+--- !u!114 &6114297178136712847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364499120666917471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d082976fbfce244e9f1d760fdda8b32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _center: {fileID: 5294747174535311098}
 --- !u!95 &8612501391129975671
 Animator:
   serializedVersion: 3

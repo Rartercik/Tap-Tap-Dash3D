@@ -681,7 +681,7 @@ GameObject:
   m_Component:
   - component: {fileID: 218046423595961803}
   - component: {fileID: 598267081813333872}
-  - component: {fileID: 598267081813333875}
+  - component: {fileID: 622280445976815750}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -724,7 +724,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &598267081813333875
+--- !u!114 &622280445976815750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -733,11 +733,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 598267081813333873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b41ef10c2934c469e39cae2cae8464, type: 3}
+  m_Script: {fileID: 11500000, guid: 600e261b5dff84f4ea577abf50d5c7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpProcessor: {fileID: 4295053043825278826}
-  _dieProcessor: {fileID: 853821161544358840}
+  _dieProcessor: {fileID: 1487070952179577046}
   _shop: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
   _skinName: Archer
 --- !u!1 &606146386769652113
@@ -2204,11 +2204,11 @@ GameObject:
   - component: {fileID: 1520715384006535613}
   - component: {fileID: 1520715384006535610}
   - component: {fileID: 1520715384006535609}
-  - component: {fileID: 1520715384006535607}
-  - component: {fileID: 1957581178611760339}
-  - component: {fileID: 419206559476052199}
   - component: {fileID: 4295053043825278826}
-  - component: {fileID: 853821161544358840}
+  - component: {fileID: 5823902349917448155}
+  - component: {fileID: 1629196186291944913}
+  - component: {fileID: 8399129357263784019}
+  - component: {fileID: 1487070952179577046}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2278,53 +2278,6 @@ MonoBehaviour:
   _shop: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
   _collectParameter: {fileID: 11400000, guid: c4cdb3cf0d0f1474a880dbd3ea9093bd, type: 2}
   text: {fileID: 0}
---- !u!114 &1520715384006535607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520715384006535604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d271918f9e3aa10469c36c05df07b664, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NextActionPlate: {fileID: 0}
-  Data: {fileID: 11400000, guid: c1c7fe2361c59784e96176eb8d9e75de, type: 2}
-  RotationMovement: {fileID: 419206559476052199}
-  VerticalMovement: {fileID: 4295053043825278826}
-  Movement: {fileID: 1957581178611760339}
-  _acceleration: 1.0002
-  _speed: 5
---- !u!114 &1957581178611760339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520715384006535604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b3556bfff9e56049a55172d42b1c654, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 0
---- !u!114 &419206559476052199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520715384006535604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c6088628f3804a4aad4ed2838392674, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
-  _rotationDuration: 0
-  _startCameraRotationDuration: 0
 --- !u!114 &4295053043825278826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2338,8 +2291,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementAnimator: {fileID: 0}
-  _jumpDuration: 0
---- !u!114 &853821161544358840
+  _jumpDuration: 1
+--- !u!114 &5823902349917448155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2348,13 +2301,59 @@ MonoBehaviour:
   m_GameObject: {fileID: 1520715384006535604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b7d147feb2546a44b843b575962152a, type: 3}
+  m_Script: {fileID: 11500000, guid: 04df04b3fae30604a9999fb460a89f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 5
+--- !u!114 &1629196186291944913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520715384006535604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f02823a28db7c4381726f5a5b6eddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
+  _rotationDuration: 0.5
+  _startCameraRotationDuration: 0.5
+--- !u!114 &8399129357263784019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520715384006535604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d1fe5faec6acf64cacc6ddee0b857e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextActionPlate: {fileID: 0}
+  Data: {fileID: 11400000, guid: c1c7fe2361c59784e96176eb8d9e75de, type: 2}
+  RotationMovement: {fileID: 0}
+  VerticalMovement: {fileID: 0}
+  Movement: {fileID: 0}
+  _acceleration: 1
+--- !u!114 &1487070952179577046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520715384006535604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaadcb17e42fd6142866bf6cf7053e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StartStation: {fileID: 0}
   MovementAnimator: {fileID: 0}
-  _adsShower: {fileID: 11400000, guid: c5a64f8e88ad71741bf15292a39246c8, type: 2}
-  _playerMovement: {fileID: 1520715384006535607}
+  _adsCounter: {fileID: 11400000, guid: c5a64f8e88ad71741bf15292a39246c8, type: 2}
+  _playerMovement: {fileID: 8399129357263784019}
   _camera: {fileID: 0}
   _collector: {fileID: 1520715384006535609}
   _maxFallingValue: 0.1
@@ -3310,7 +3309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1520715384875784505}
   - component: {fileID: 1520715384875784504}
-  - component: {fileID: 1520715384875784507}
+  - component: {fileID: 6706405269278035351}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -3354,7 +3353,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1520715384875784507
+--- !u!114 &6706405269278035351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3363,11 +3362,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1520715384875784502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b41ef10c2934c469e39cae2cae8464, type: 3}
+  m_Script: {fileID: 11500000, guid: 600e261b5dff84f4ea577abf50d5c7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpProcessor: {fileID: 4295053043825278826}
-  _dieProcessor: {fileID: 853821161544358840}
+  _dieProcessor: {fileID: 1487070952179577046}
   _shop: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
   _skinName: Knight
 --- !u!1 &1520715384906169112
@@ -4155,7 +4154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1337590979745247012}
   - component: {fileID: 1863297569162737025}
-  - component: {fileID: 1863297569162737024}
+  - component: {fileID: 9073837892930199875}
   m_Layer: 0
   m_Name: Villager
   m_TagString: Untagged
@@ -4198,7 +4197,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1863297569162737024
+--- !u!114 &9073837892930199875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4207,11 +4206,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1863297569162737054}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b41ef10c2934c469e39cae2cae8464, type: 3}
+  m_Script: {fileID: 11500000, guid: 600e261b5dff84f4ea577abf50d5c7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpProcessor: {fileID: 4295053043825278826}
-  _dieProcessor: {fileID: 853821161544358840}
+  _dieProcessor: {fileID: 1487070952179577046}
   _shop: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
   _skinName: Villager
 --- !u!1 &1907428073230702758
@@ -7125,7 +7124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5493526856114610994}
   - component: {fileID: 5149652032406681995}
-  - component: {fileID: 5149652032406681994}
+  - component: {fileID: 7879627952201191530}
   m_Layer: 0
   m_Name: Ninja
   m_TagString: Untagged
@@ -7168,7 +7167,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5149652032406681994
+--- !u!114 &7879627952201191530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7177,11 +7176,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5149652032406681992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b41ef10c2934c469e39cae2cae8464, type: 3}
+  m_Script: {fileID: 11500000, guid: 600e261b5dff84f4ea577abf50d5c7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpProcessor: {fileID: 4295053043825278826}
-  _dieProcessor: {fileID: 853821161544358840}
+  _dieProcessor: {fileID: 1487070952179577046}
   _shop: {fileID: 11400000, guid: 6376f97eba1a6464aa9182a7cbc6f277, type: 2}
   _skinName: Ninja
 --- !u!1 &5215037177693978545

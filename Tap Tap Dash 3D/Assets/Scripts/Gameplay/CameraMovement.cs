@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
 	[SerializeField] PlayerData _data;
-	[SerializeField] Transform rotationCenter;
+	[SerializeField] Transform _rotationCenter;
 	
 	private float _rotationDuration;
-	private bool startRotate;
-	private Transform startTransform;
-	private float endRotationY;
-	private float progress;
+	private bool _startRotate;
+	private Transform _startTransform;
+	private float _endRotationY;
+	private float _progress;
 	
 	public float RotationDuration
 	{
@@ -28,36 +26,36 @@ public class CameraMovement : MonoBehaviour
 		}
 	}
 	
-    void Update()
+    private void Update()
     {
-        if(startRotate)
+        if(_startRotate)
         {
-        	if(progress < 1)
+        	if(_progress < 1)
         	{
-        		progress += Time.deltaTime / RotationDuration;
+        		_progress += Time.deltaTime / RotationDuration;
         		
-        		rotationCenter.rotation = Quaternion.Lerp(startTransform.rotation, Quaternion.Euler(new Vector3(
-        																	startTransform.eulerAngles.x,
-        		                                                            endRotationY,
-        		                                                            startTransform.eulerAngles.z)), progress);
+        		_rotationCenter.rotation = Quaternion.Lerp(_startTransform.rotation, Quaternion.Euler(new Vector3(
+        																	_startTransform.eulerAngles.x,
+        		                                                            _endRotationY,
+        		                                                            _startTransform.eulerAngles.z)), _progress);
         	}
         	else
         	{
-        		startRotate = false;
-        		progress = 0;
+        		_startRotate = false;
+        		_progress = 0;
         	}
         }
     }
     
     public void Rotate(float yRotation)
     {
-    	startRotate = true;
-    	startTransform = rotationCenter;
-    	endRotationY = yRotation;
+    	_startRotate = true;
+    	_startTransform = _rotationCenter;
+    	_endRotationY = yRotation;
     }
     public void StopRotate()
     {
-        startRotate = false;
-        progress = 0;
+        _startRotate = false;
+        _progress = 0;
     }
 }

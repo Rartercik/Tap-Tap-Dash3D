@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Jumper : ActionPlate
 {
-	public override void DoAction()
+	public override void DoAction(PlayerMovement player)
 	{
 		player.Jump(next);
 		gameObject.SetActive(false);

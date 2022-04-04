@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChooseWorld : MonoBehaviour
 {
-	[SerializeField] GameObject our;
-	[SerializeField] GameObject[] others;
+	[SerializeField] GameObject _our;
+	[SerializeField] GameObject[] _others;
 	
 	public void OnClick()
 	{
-		our.SetActive(true);
-		foreach(var e in others)
+		_our.SetActive(true);
+		foreach(var e in _others)
 			e.SetActive(false);
 	}
 }

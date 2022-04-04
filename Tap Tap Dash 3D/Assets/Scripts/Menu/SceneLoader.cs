@@ -1,49 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Button))]
 public class SceneLoader : MonoBehaviour
 {
-	[SerializeField] int World;
-	[SerializeField] int level;
-	[SerializeField] AdsShower _adsShower;
+	[SerializeField] int _world;
+	[SerializeField] int _level;
 	
 	private Button button;
 	
-	void Start()
+	private void Start()
 	{
 		button = GetComponent<Button>();
 		
-		if(!PlayerPrefs.HasKey(World + " 1")) PlayerPrefs.SetString(World + " 1", World + " 1");
+		if(!PlayerPrefs.HasKey(_world + " 1")) PlayerPrefs.SetString(_world + " 1", _world + " 1");
 		
-		if(!PlayerPrefs.HasKey(string.Format("{0} {1}", World, level)))
+		if(!PlayerPrefs.HasKey(string.Format("{0} {1}", _world, _level)))
 		{
 			ColorBlock cb = button.colors;
-			cb.normalColor = new Color(button.colors.normalColor.r,
-			                           button.colors.normalColor.g,
-			                           button.colors.normalColor.r,
-			                           0.2f);
-			cb.highlightedColor = new Color(button.colors.normalColor.r,
-			                           button.colors.normalColor.g,
-			                           button.colors.normalColor.r,
-			                           0.2f);
-			cb.selectedColor = new Color(button.colors.normalColor.r,
-			                           button.colors.normalColor.g,
-			                           button.colors.normalColor.r,
-			                           0.2f);
- 			button.colors = cb;
+			var disableColor = new Color(cb.normalColor.r, cb.normalColor.g, cb.normalColor.b, 0.2f);
+			cb.normalColor = disableColor;
+			cb.highlightedColor = disableColor;
+			cb.selectedColor = disableColor;
+			button.colors = cb;
 		}
 	}
 	
 	public void LoadScene()
 	{
-		if(PlayerPrefs.HasKey(string.Format("{0} {1}", World, level)))
+		if(PlayerPrefs.HasKey(string.Format("{0} {1}", _world, _level)))
 		{
-			StartLevel.Level = level;
-			SceneManager.LoadScene(World);
-			_adsShower.UpdateAds();
+			StartLevel.Level = _level;
+			SceneManager.LoadScene(_world);
 		}
 	}
 }
