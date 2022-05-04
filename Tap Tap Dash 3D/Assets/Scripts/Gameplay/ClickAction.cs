@@ -1,8 +1,9 @@
 using UnityEngine;
+using Zenject;
 
 public class ClickAction : MonoBehaviour
 {
-	[SerializeField] PlayerMovement _player;
+	[Inject] PlayerMovement _player;
 	
 	public void OnClick()
 	{

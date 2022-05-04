@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerEnding : MonoBehaviour
@@ -11,11 +12,12 @@ public class PlayerEnding : MonoBehaviour
     [SerializeField] AdsCounter _adsCounter;
     [SerializeField] AdsCompleteImage _adsCompleteImage;
 
-    [SerializeField] PlayerMovement _playerMovement;
     [SerializeField] Transform _cameraCenter;
     [SerializeField] Collector _collector;
     [SerializeField] float _maxFallingValue;
     [SerializeField] float _maxZRotation;
+
+    [Inject] PlayerMovement _playerMovement;
 
     private Transform _transform;
     private AdsShower _adsShower;
